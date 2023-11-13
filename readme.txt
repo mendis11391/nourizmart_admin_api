@@ -2,6 +2,8 @@ To start the server:
 npm start
 
 To build files:
-Delete the dist folder and execute the below command:
+// This will clear all the js files inside dist folder
+tsc --build --clean
 
+// This will create newly built js files
 tsc --build
