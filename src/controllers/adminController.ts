@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import dotenv from "dotenv";
 import path from "path";
-import adminModel from "../models/adminModel";
+import adminModel from "../services/adminService";
 
 dotenv.config({ path: path.resolve(__dirname, "..", ".env") });
 
@@ -12,8 +12,10 @@ class AdminController {
       mobile: req.body.mobile,
       firstname: req.body.firstname,
       lastname: req.body.lastname,
+      groupid: req.body.groupid,
       createdby: req.body.createdby,
       password: req.body.password,
+      operation: req.body.operation,
     };
     adminModel.addNewAdminUser(JSON.stringify(reqParam), (error, results) => {
       if (error) {

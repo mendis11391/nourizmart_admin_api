@@ -2,7 +2,7 @@ import pool from "../database/connection";
 
 class Users {
   getAll(callback: (error: any, results: any) => void) {
-    const query = "SELECT * FROM VW_NRM_USER_DETAILS_BASE";
+    const query = "SELECT * FROM VW_NRM_CUSTOMER_DETAILS_BASE";
     pool.query(query, callback);
   }
 
@@ -53,14 +53,6 @@ class Users {
     ];
 
     pool.query(query, values, callback);
-  }
-
-  addNewAdminUser(
-    userData: string,
-    callback: (error: any, results: any) => void
-  ) {
-    // Call the stored procedure
-    pool.query("CALL nrm_admin_workflow(?)", [userData], callback);
   }
 }
 

@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import Users from "../models/userModel";
+import Users from "../services/userService";
 import dotenv from "dotenv";
 import path from "path";
 

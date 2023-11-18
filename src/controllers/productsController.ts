@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import userModel from "../models/productmodels";
+import userModel from "../services/productService";
 
 class ProductsController {
   getAllProducts(req: Request, res: Response) {
