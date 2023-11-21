@@ -6,4 +6,5 @@ To build files:
 tsc --build --clean
 
 // This will create newly built js files
+tsc --build --clean
 tsc --build

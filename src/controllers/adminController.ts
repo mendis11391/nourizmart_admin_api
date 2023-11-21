@@ -41,6 +41,41 @@ class AdminController {
       }
     });
   }
+
+  loadDataBasedOnPincodes(req: Request, res: Response) {
+    const pincode = req.params.pincode;
+
+    adminModel.fetchDataBasedOnPincodes(pincode, (error, results) => {
+      if (error) {
+        console.error("Error fetching data based on pincode:", error);
+        res.status(500).json({ error: "API error" });
+      } else {
+        const updatedArr = results[0]["PostOffice"].map((val: any) => ({
+          area: val.Name,
+          pincode: val.Pincode,
+          taluk: val.Block,
+          state: val.State,
+          district: val.District,
+        }));
+        res.json(updatedArr);
+      }
+    });
+  }
+
+  savePincodeInfo(req: Request, res: Response) {
+    const pincodeInfo = req.body;
+    adminModel.addInfoForPinCode(
+      JSON.stringify(pincodeInfo),
+      (error, results) => {
+        if (error) {
+          console.error("Error loading pincode info:", error);
+          res.status(500).json({ error: "API error" });
+        } else {
+          res.json({ result: results });
+        }
+      }
+    );
+  }
 }
 
 export default new AdminController();

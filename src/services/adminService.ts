@@ -1,3 +1,4 @@
+import axios from "axios";
 import pool from "../database/connection";
 
 class Admin {
@@ -18,6 +19,31 @@ class Admin {
       [userData.username, userData.password],
       callback
     );
+  }
+
+  fetchDataBasedOnPincodes(
+    pincode: string,
+    callback: (error: any, results: any) => void
+  ) {
+    const apiUrl = `https://api.postalpincode.in/pincode/${pincode}`;
+
+    axios
+      .get(apiUrl)
+      .then((response) => {
+        const data = response.data;
+        callback(null, data);
+      })
+      .catch((error) => {
+        console.error("Error fetching data from external API:", error);
+        callback(error, null);
+      });
+  }
+
+  addInfoForPinCode(
+    pincodeInfo: any,
+    callback: (error: any, results: any) => void
+  ) {
+    pool.query("call nrm_location_wflow(? ,@P_OUT);", [pincodeInfo], callback);
   }
 }
 
