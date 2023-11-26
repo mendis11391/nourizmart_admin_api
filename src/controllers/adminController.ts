@@ -71,7 +71,7 @@ class AdminController {
           console.error("Error loading pincode info:", error);
           res.status(500).json({ error: "API error" });
         } else {
-          res.json({ result: results });
+          res.json({ result: results[0][0].status });
         }
       }
     );

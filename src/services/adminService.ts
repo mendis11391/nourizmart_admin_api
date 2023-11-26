@@ -43,7 +43,7 @@ class Admin {
     pincodeInfo: any,
     callback: (error: any, results: any) => void
   ) {
-    pool.query("call nrm_location_wflow(? ,@P_OUT);", [pincodeInfo], callback);
+    pool.query("call nrm_location_wflow(?);", [pincodeInfo], callback);
   }
 }
 
