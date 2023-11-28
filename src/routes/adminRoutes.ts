@@ -7,5 +7,9 @@ adminRoutes.post("/addAdmin", adminController.addNewAdminUser);
 adminRoutes.post("/adminLogin", adminController.adminLogin);
 adminRoutes.get("/pincode/:pincode", adminController.loadDataBasedOnPincodes);
 adminRoutes.post("/loadPincodeInfo", adminController.savePincodeInfo);
+adminRoutes.get("/states", adminController.fetchStates);
+adminRoutes.get("/cities/:stateCode", adminController.fetchCities);
+adminRoutes.get("/pincodes/:cityCode", adminController.fetchPincodes);
+adminRoutes.get("/area/:pincode", adminController.fetchArea);
 
 export default adminRoutes;

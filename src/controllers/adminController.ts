@@ -76,6 +76,53 @@ class AdminController {
       }
     );
   }
+
+  fetchStates(req: Request, res: Response) {
+    adminModel.getStatesList((error, results) => {
+      if (error) {
+        console.error("Error fecthing:", error);
+        res.status(500).json({ error: "API error" });
+      } else {
+        res.json(results);
+      }
+    });
+  }
+
+  fetchCities(req: Request, res: Response) {
+    const stateCode = req.params.stateCode;
+    adminModel.getCitiesList(+stateCode, (error, results) => {
+      if (error) {
+        console.error("Error fecthing:", error);
+        res.status(500).json({ error: "API error" });
+      } else {
+        res.json(results);
+      }
+    });
+  }
+
+  fetchPincodes(req: Request, res: Response) {
+    const cityCode = req.params.cityCode;
+    adminModel.getPincodesList(+cityCode, (error, results) => {
+      if (error) {
+        console.error("Error fecthing:", error);
+        res.status(500).json({ error: "API error" });
+      } else {
+        res.json(results);
+      }
+    });
+  }
+
+  fetchArea(req: Request, res: Response) {
+    const pincode = req.params.pincode;
+    adminModel.getAreasList(+pincode, (error, results) => {
+      if (error) {
+        console.error("Error fecthing:", error);
+        res.status(500).json({ error: "API error" });
+      } else {
+        res.json(results);
+      }
+    });
+  }
 }
 
 export default new AdminController();

@@ -45,6 +45,40 @@ class Admin {
   ) {
     pool.query("call nrm_location_wflow(?);", [pincodeInfo], callback);
   }
+
+  getStatesList(callback: (error: any, results: any) => void) {
+    pool.query("select * from VW_NRM_STATE;", callback);
+  }
+
+  getCitiesList(
+    stateCode: number,
+    callback: (error: any, results: any) => void
+  ) {
+    pool.query(
+      "select * from VW_NRM_DISTRICT where stateId = ?;",
+      [stateCode],
+      callback
+    );
+  }
+
+  getPincodesList(
+    cityCode: number,
+    callback: (error: any, results: any) => void
+  ) {
+    pool.query(
+      "select * from VW_NRM_PINCODE where districtId = ?;",
+      [cityCode],
+      callback
+    );
+  }
+
+  getAreasList(pincode: number, callback: (error: any, results: any) => void) {
+    pool.query(
+      "select * from VW_NRM_AREA where pincodeId = ?;",
+      [pincode],
+      callback
+    );
+  }
 }
 
 export default new Admin();
