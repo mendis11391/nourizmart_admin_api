@@ -1,11 +1,11 @@
-import { Router } from "express";
-import userController from "../controllers/userController";
+// import { Router } from "express";
+// import userController from "../controllers/userController";
 
-const userRoutes = Router();
+// const userRoutes = Router();
 
-userRoutes.get("/", userController.getAllUsers);
-userRoutes.get("/:id", userController.getUserById);
-userRoutes.get("/checkUserExists/:id", userController.checkIfUserExists);
-userRoutes.post("/saveUser", userController.saveUser);
+// userRoutes.get("/", userController.getAllUsers);
+// userRoutes.get("/:id", userController.getUserById);
+// userRoutes.get("/checkUserExists/:id", userController.checkIfUserExists);
+// // userRoutes.post("/saveUser", userController.saveUser);
 
-export default userRoutes;
+// export default userRoutes;

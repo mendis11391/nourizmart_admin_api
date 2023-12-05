@@ -1,13 +1,21 @@
 import { Request, Response } from "express";
 import dotenv from "dotenv";
 import path from "path";
-import adminModel from "../services/adminService";
+import AdminService from "../services/adminService";
+import { AddAdmin } from "../models/adminModel";
 
 dotenv.config({ path: path.resolve(__dirname, "..", ".env") });
 
-class AdminController {
-  addNewAdminUser(req: Request, res: Response) {
-    const reqParam = {
+const jwt = require("jsonwebtoken");
+
+const adminService = new AdminService();
+
+export const addOrUpdateNewAdminUser = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
+    const reqParam: AddAdmin = {
       username: req.body.username,
       mobile: req.body.mobile,
       firstname: req.body.firstname,
@@ -17,112 +25,106 @@ class AdminController {
       password: req.body.password,
       operation: req.body.operation,
     };
-    adminModel.addNewAdminUser(JSON.stringify(reqParam), (error, results) => {
-      if (error) {
-        console.error("Error adding user:", error);
-        res.status(500).json({ error: "Database error" });
-      } else {
-        res.json(results[0]);
-      }
-    });
+    const result = await adminService.addOrUpdateNewAdminUser(
+      JSON.stringify(reqParam)
+    );
+    res.json(result);
+  } catch (error) {
+    res.status(500).json({ error: "Internal Server Error" });
   }
+};
 
-  adminLogin(req: Request, res: Response) {
+export const adminLogin = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
     const reqParam = {
       username: req.body.username,
       password: req.body.password,
     };
-    adminModel.adminUserLogin(reqParam, (error, results) => {
-      if (error) {
-        console.error("Error logging in:", error);
-        res.status(500).json({ error: "Login error" });
-      } else {
-        res.json({ result: results[0].result ? true : false });
-      }
-    });
+    const result = await adminService.adminUserLogin(reqParam);
+    // if (result && result[0]) {
+    //   const accessToken = jwt.sign(
+    //     { request: reqParam },
+    //     process.env.ACCESS_TOKEN_SECRET
+    //   );
+    //   res.json({ accessToken: accessToken });
+    // } else {
+    //   res.json({ accessToken: null });
+    // }
+    res.json(result[0]);
+  } catch (error) {
+    console.error("Error in adminLogin:", error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
+};
 
-  loadDataBasedOnPincodes(req: Request, res: Response) {
+export const loadDataBasedOnPincodes = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
     const pincode = req.params.pincode;
 
-    adminModel.fetchDataBasedOnPincodes(pincode, (error, results) => {
-      if (error) {
-        console.error("Error fetching data based on pincode:", error);
-        res.status(500).json({ error: "API error" });
-      } else {
-        const updatedArr = results[0]["PostOffice"].map((val: any) => ({
-          area: val.Name,
-          pincode: val.Pincode,
-          taluk: val.Block,
-          state: val.State,
-          district: val.District,
-        }));
-        res.json(updatedArr);
-      }
-    });
+    const externalData = await adminService.fetchDataBasedOnPincodes(pincode);
+    const updatedArr = externalData.data[0].PostOffice.map((val: any) => ({
+      area: val.Name,
+      pincode: val.Pincode,
+      taluk: val.Block,
+      state: val.State,
+      district: val.District,
+    }));
+    res.json(updatedArr);
+  } catch (error) {
+    res.status(500).json({ error: "Internal Server Error" });
   }
+};
 
-  savePincodeInfo(req: Request, res: Response) {
-    const pincodeInfo = req.body;
-    adminModel.addInfoForPinCode(
-      JSON.stringify(pincodeInfo),
-      (error, results) => {
-        if (error) {
-          console.error("Error loading pincode info:", error);
-          res.status(500).json({ error: "API error" });
-        } else {
-          res.json({ result: results[0][0].status });
-        }
-      }
-    );
+export const fetchStates = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
+    const states = await adminService.getStatesList();
+    res.json(states);
+  } catch (error) {
+    res.status(500).json({ error: "Internal Server Error" });
   }
+};
 
-  fetchStates(req: Request, res: Response) {
-    adminModel.getStatesList((error, results) => {
-      if (error) {
-        console.error("Error fecthing:", error);
-        res.status(500).json({ error: "API error" });
-      } else {
-        res.json(results);
-      }
-    });
-  }
-
-  fetchCities(req: Request, res: Response) {
+export const fetchCities = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
     const stateCode = req.params.stateCode;
-    adminModel.getCitiesList(+stateCode, (error, results) => {
-      if (error) {
-        console.error("Error fecthing:", error);
-        res.status(500).json({ error: "API error" });
-      } else {
-        res.json(results);
-      }
-    });
+    const cities = await adminService.getCitiesList(+stateCode);
+    res.json(cities);
+  } catch (error) {
+    res.status(500).json({ error: "Internal Server Error" });
   }
+};
 
-  fetchPincodes(req: Request, res: Response) {
+export const fetchPincodes = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
     const cityCode = req.params.cityCode;
-    adminModel.getPincodesList(+cityCode, (error, results) => {
-      if (error) {
-        console.error("Error fecthing:", error);
-        res.status(500).json({ error: "API error" });
-      } else {
-        res.json(results);
-      }
-    });
+    const pincodes = await adminService.getPincodesList(+cityCode);
+    res.json(pincodes);
+  } catch (error) {
+    res.status(500).json({ error: "Internal Server Error" });
   }
+};
 
-  fetchArea(req: Request, res: Response) {
+export const fetchArea = async (req: Request, res: Response): Promise<void> => {
+  try {
     const pincode = req.params.pincode;
-    adminModel.getAreasList(+pincode, (error, results) => {
-      if (error) {
-        console.error("Error fecthing:", error);
-        res.status(500).json({ error: "API error" });
-      } else {
-        res.json(results);
-      }
-    });
+    const pincodes = await adminService.getAreasList(+pincode);
+    res.json(pincodes);
+  } catch (error) {
+    res.status(500).json({ error: "Internal Server Error" });
   }
-}
-
-export default new AdminController();
+};

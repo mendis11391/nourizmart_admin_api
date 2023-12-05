@@ -1,15 +1,25 @@
 import { Router } from "express";
-import adminController from "../controllers/adminController";
-
+import {
+  addOrUpdateNewAdminUser,
+  adminLogin,
+  fetchArea,
+  fetchCities,
+  fetchPincodes,
+  fetchStates,
+  loadDataBasedOnPincodes,
+} from "../controllers/adminController";
 const adminRoutes = Router();
 
-adminRoutes.post("/addAdmin", adminController.addNewAdminUser);
-adminRoutes.post("/adminLogin", adminController.adminLogin);
-adminRoutes.get("/pincode/:pincode", adminController.loadDataBasedOnPincodes);
-adminRoutes.post("/loadPincodeInfo", adminController.savePincodeInfo);
-adminRoutes.get("/states", adminController.fetchStates);
-adminRoutes.get("/cities/:stateCode", adminController.fetchCities);
-adminRoutes.get("/pincodes/:cityCode", adminController.fetchPincodes);
-adminRoutes.get("/area/:pincode", adminController.fetchArea);
+// POST API's
+adminRoutes.post("/adminLogin", adminLogin);
+adminRoutes.post("/addAdmin", addOrUpdateNewAdminUser);
+// Get API's
+adminRoutes.get("/pincode/:pincode", loadDataBasedOnPincodes);
+adminRoutes.get("/states", fetchStates);
+adminRoutes.get("/cities/:stateCode", fetchCities);
+adminRoutes.get("/pincodes/:cityCode", fetchPincodes);
+adminRoutes.get("/area/:pincode", fetchArea);
+
+// adminRoutes.post("/loadPincodeInfo", savePincodeInfo);
 
 export default adminRoutes;

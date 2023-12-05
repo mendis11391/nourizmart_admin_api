@@ -1,9 +1,9 @@
-import { Router } from "express";
-import userController from "../controllers/productsController";
+// import { Router } from "express";
+// import userController from "../controllers/productsController";
 
-const customerRoutes = Router();
+// const customerRoutes = Router();
 
-customerRoutes.get("/", userController.getAllProducts);
-customerRoutes.get("/:id", userController.getProductById);
+// customerRoutes.get("/", userController.getAllProducts);
+// customerRoutes.get("/:id", userController.getProductById);
 
-export default customerRoutes;
+// export default customerRoutes;

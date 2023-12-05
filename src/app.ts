@@ -1,11 +1,8 @@
 import express from "express";
-import dotenv from "dotenv";
 import cors from "cors";
-import userRoutes from "./routes/userRoutes";
-import productRoutes from "./routes/productRoutes";
-import appRoutes from "./routes/appRoute";
+import dotenv from "dotenv";
 import path from "path";
-import adminRoutes from "./routes/adminRoutes";
+import AppRoute from "./routes";
 
 dotenv.config({ path: path.resolve(__dirname, ".env") });
 
@@ -14,15 +11,13 @@ const corsOptions = {
   origin: "*",
   methods: "GET,POST,PUT,DELETE",
   allowedHeaders: "Content-Type,Authorization",
+  exposedHeaders: "*",
 };
-
-app.use(cors(corsOptions));
 app.use(express.json());
-
-app.use("/", appRoutes);
-app.use("/users", userRoutes);
-app.use("/admin", adminRoutes);
-app.use("/products", productRoutes);
+app.use(express.urlencoded({ extended: true }));
+app.use(cors(corsOptions));
+const appRoute = new AppRoute();
+appRoute.useRoute(app);
 
 const port = process.env.PORT || 3000;
 

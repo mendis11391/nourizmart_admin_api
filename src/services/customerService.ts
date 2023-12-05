@@ -1,10 +1,24 @@
-import pool from "../database/connection";
+// import { connectToDatabase, query } from "../database/connection";
 
-class Customers {
-  getAll(callback: (error: any, results: any) => void) {
-    const query = "SELECT * FROM customers";
-    pool.query(query, callback);
-  }
-}
+// export class CustomerService {
+//   getAll(callback: (error: any, results: any) => void) {
+//     const query = "SELECT * FROM customers";
+//     pool.query(query, callback);
+//   }
 
-export default new Customers();
+//   static async getAll(): Promise<any> {
+//     const connection = await connectToDatabase();
+//     const result = await query(
+//       connection,
+//       "SELECT NRM_ADMIN_AUTH(?,?) as result;",
+//       [userData.username, userData.password]
+//     );
+//     if (result === 0) {
+//       return null;
+//     }
+//     connection.end();
+//     return result;
+//   }
+// }
+
+// export default CustomerService;
