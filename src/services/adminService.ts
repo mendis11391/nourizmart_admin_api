@@ -14,10 +14,8 @@ export class AdminService {
   }
 
   adminUserLogin(userData: any): Promise<any> {
-    // const sql = "SELECT NRM_ADMIN_AUTH(?,?) as result;";
-    const sql =
-      "select admin_id, user_name, mobile from NRM_ADMIN_DETAILS where user_name=?;";
-    return query(sql, [userData.username]);
+    const sql = "SELECT NRM_ADMIN_AUTH(?,?) as result;";
+    return query(sql, [userData.username, userData.password]);
   }
 
   // addInfoForPinCode(pincodeInfo: any): Promise<any> {

@@ -44,16 +44,15 @@ export const adminLogin = async (
       password: req.body.password,
     };
     const result = await adminService.adminUserLogin(reqParam);
-    // if (result && result[0]) {
-    //   const accessToken = jwt.sign(
-    //     { request: reqParam },
-    //     process.env.ACCESS_TOKEN_SECRET
-    //   );
-    //   res.json({ accessToken: accessToken });
-    // } else {
-    //   res.json({ accessToken: null });
-    // }
-    res.json(result[0]);
+    if (result && result[0] && result[0].result) {
+      const accessToken = jwt.sign(
+        { request: reqParam },
+        process.env.ACCESS_TOKEN_SECRET
+      );
+      res.json({ accessToken: accessToken });
+    } else {
+      res.json({ accessToken: null });
+    }
   } catch (error) {
     console.error("Error in adminLogin:", error);
     res.status(500).json({ error: "Internal Server Error" });
