@@ -44,9 +44,16 @@ export const adminLogin = async (
       password: req.body.password,
     };
     const result = await adminService.adminUserLogin(reqParam);
-    if (result && result[0] && result[0].result) {
+    if (result && result[0]) {
+      const adminUser = result[0];
       const accessToken = jwt.sign(
-        { request: reqParam },
+        {
+          adminId: adminUser.adminId,
+          userName: adminUser.userName,
+          firstName: adminUser.firstName,
+          lastName: adminUser.lastName,
+          groupId: adminUser.groupId,
+        },
         process.env.ACCESS_TOKEN_SECRET
       );
       res.json({ accessToken: accessToken });

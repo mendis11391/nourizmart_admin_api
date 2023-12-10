@@ -14,7 +14,8 @@ export class AdminService {
   }
 
   adminUserLogin(userData: any): Promise<any> {
-    const sql = "SELECT NRM_ADMIN_AUTH(?,?) as result;";
+    const sql =
+      "SELECT * FROM VW_NRM_ADMIN_AUTH where upper(userName)= upper(?) and password = NRM_PASS_HASH(?);";
     return query(sql, [userData.username, userData.password]);
   }
 
