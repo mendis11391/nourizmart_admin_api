@@ -124,7 +124,7 @@ exports.fetchArea = fetchArea;
 const savePincodeInfo = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const pincodeInfo = req.body;
-        const result = yield adminService.addInfoForPinCode(pincodeInfo);
+        const result = yield adminService.addInfoForPinCode(JSON.stringify(pincodeInfo));
         res.json({ result: result[0][0].status });
     }
     catch (error) {
