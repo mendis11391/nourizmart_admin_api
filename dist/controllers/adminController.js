@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.fetchArea = exports.fetchPincodes = exports.fetchCities = exports.fetchStates = exports.loadDataBasedOnPincodes = exports.adminLogin = exports.addOrUpdateNewAdminUser = void 0;
+exports.savePincodeInfo = exports.fetchArea = exports.fetchPincodes = exports.fetchCities = exports.fetchStates = exports.loadDataBasedOnPincodes = exports.adminLogin = exports.addOrUpdateNewAdminUser = void 0;
 const dotenv_1 = __importDefault(require("dotenv"));
 const path_1 = __importDefault(require("path"));
 const adminService_1 = __importDefault(require("../services/adminService"));
@@ -46,16 +46,13 @@ const adminLogin = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
             password: req.body.password,
         };
         const result = yield adminService.adminUserLogin(reqParam);
-        // if (result && result[0]) {
-        //   const accessToken = jwt.sign(
-        //     { request: reqParam },
-        //     process.env.ACCESS_TOKEN_SECRET
-        //   );
-        //   res.json({ accessToken: accessToken });
-        // } else {
-        //   res.json({ accessToken: null });
-        // }
-        res.json(result[0]);
+        if (result && result[0] && result[0].result) {
+            const accessToken = jwt.sign({ request: reqParam }, process.env.ACCESS_TOKEN_SECRET);
+            res.json({ accessToken: accessToken });
+        }
+        else {
+            res.json({ accessToken: null });
+        }
     }
     catch (error) {
         console.error("Error in adminLogin:", error);
@@ -124,4 +121,16 @@ const fetchArea = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.fetchArea = fetchArea;
+const savePincodeInfo = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const pincodeInfo = req.body;
+        const result = yield adminService.addInfoForPinCode(pincodeInfo);
+        res.json({ result: result[0][0].status });
+    }
+    catch (error) {
+        console.error("Error in adding:", error);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+});
+exports.savePincodeInfo = savePincodeInfo;
 //# sourceMappingURL=adminController.js.map

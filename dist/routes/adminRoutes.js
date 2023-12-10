@@ -12,6 +12,6 @@ adminRoutes.get("/states", adminController_1.fetchStates);
 adminRoutes.get("/cities/:stateCode", adminController_1.fetchCities);
 adminRoutes.get("/pincodes/:cityCode", adminController_1.fetchPincodes);
 adminRoutes.get("/area/:pincode", adminController_1.fetchArea);
-// adminRoutes.post("/loadPincodeInfo", savePincodeInfo);
+adminRoutes.post("/loadPincodeInfo", adminController_1.savePincodeInfo);
 exports.default = adminRoutes;
 //# sourceMappingURL=adminRoutes.js.map

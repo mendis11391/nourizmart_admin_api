@@ -9,7 +9,7 @@ export class AdminService {
   }
 
   addOrUpdateNewAdminUser(userData: any): Promise<any> {
-    const sql = "CALL nrm_admin_workflow(?);";
+    const sql = "CALL NRM_ADMIN_WORKFLOW(?);";
     return query(sql, [userData]);
   }
 
@@ -18,10 +18,10 @@ export class AdminService {
     return query(sql, [userData.username, userData.password]);
   }
 
-  // addInfoForPinCode(pincodeInfo: any): Promise<any> {
-  //   const sql = "call nrm_location_wflow(?);";
-  //   return query(sql, [pincodeInfo]);
-  // }
+  addInfoForPinCode(pincodeInfo: any): Promise<any> {
+    const sql = "call NRM_LOCATION_WFLOW(?);";
+    return query(sql, [pincodeInfo]);
+  }
 
   getStatesList(): Promise<any> {
     const sql = "select * from VW_NRM_STATE;";

@@ -127,3 +127,19 @@ export const fetchArea = async (req: Request, res: Response): Promise<void> => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
+
+export const savePincodeInfo = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
+    const pincodeInfo = req.body;
+    const result = await adminService.addInfoForPinCode(
+      JSON.stringify(pincodeInfo)
+    );
+    res.json({ result: result[0][0].status });
+  } catch (error) {
+    console.error("Error in adding:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};

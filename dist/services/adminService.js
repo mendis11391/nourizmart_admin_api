@@ -13,18 +13,17 @@ class AdminService {
         return response;
     }
     addOrUpdateNewAdminUser(userData) {
-        const sql = "CALL nrm_admin_workflow(?);";
+        const sql = "CALL NRM_ADMIN_WORKFLOW(?);";
         return (0, connection_1.query)(sql, [userData]);
     }
     adminUserLogin(userData) {
-        // const sql = "SELECT NRM_ADMIN_AUTH(?,?) as result;";
-        const sql = "select admin_id, user_name, mobile from NRM_ADMIN_DETAILS where user_name=?;";
-        return (0, connection_1.query)(sql, [userData.username]);
+        const sql = "SELECT NRM_ADMIN_AUTH(?,?) as result;";
+        return (0, connection_1.query)(sql, [userData.username, userData.password]);
     }
-    // addInfoForPinCode(pincodeInfo: any): Promise<any> {
-    //   const sql = "call nrm_location_wflow(?);";
-    //   return query(sql, [pincodeInfo]);
-    // }
+    addInfoForPinCode(pincodeInfo) {
+        const sql = "call NRM_LOCATION_WFLOW(?);";
+        return (0, connection_1.query)(sql, [pincodeInfo]);
+    }
     getStatesList() {
         const sql = "select * from VW_NRM_STATE;";
         return (0, connection_1.query)(sql);
