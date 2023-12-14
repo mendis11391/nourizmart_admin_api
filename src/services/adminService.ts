@@ -8,6 +8,11 @@ export class AdminService {
     return response;
   }
 
+  getAllAdminUsers(): Promise<any> {
+    const sql = "select * from VW_NRM_ADMIN_AUTH;";
+    return query(sql);
+  }
+
   addOrUpdateNewAdminUser(userData: any): Promise<any> {
     const sql = "CALL NRM_ADMIN_WORKFLOW(?);";
     return query(sql, [userData]);

@@ -9,7 +9,7 @@ const isAuth_1 = __importDefault(require("../middleware/isAuth"));
 const adminRoutes = (0, express_1.Router)();
 // POST API's
 adminRoutes.post("/adminLogin", adminController_1.adminLogin);
-adminRoutes.post("/addAdmin", adminController_1.addOrUpdateNewAdminUser);
+adminRoutes.post("/addAdmin", isAuth_1.default, adminController_1.addOrUpdateNewAdminUser);
 // Get API's
 adminRoutes.get("/pincode/:pincode", adminController_1.loadDataBasedOnPincodes);
 adminRoutes.get("/states", isAuth_1.default, adminController_1.fetchStates);

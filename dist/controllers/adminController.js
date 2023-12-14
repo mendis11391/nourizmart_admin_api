@@ -21,18 +21,19 @@ const jwt = require("jsonwebtoken");
 const adminService = new adminService_1.default();
 const addOrUpdateNewAdminUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        const admin = req.user;
         const reqParam = {
-            username: req.body.username,
+            username: req.body.userName,
             mobile: req.body.mobile,
-            firstname: req.body.firstname,
-            lastname: req.body.lastname,
+            firstname: req.body.firstName,
+            lastname: req.body.lastName,
             groupid: req.body.groupid,
-            createdby: req.body.createdby,
+            createdby: admin.userName,
             password: req.body.password,
             operation: req.body.operation,
         };
         const result = yield adminService.addOrUpdateNewAdminUser(JSON.stringify(reqParam));
-        res.json(result);
+        res.json(result[0][0]);
     }
     catch (error) {
         res.status(500).json({ error: "Internal Server Error" });
@@ -55,7 +56,16 @@ const adminLogin = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
                 lastName: adminUser.lastName,
                 groupId: adminUser.groupId,
             }, process.env.ACCESS_TOKEN_SECRET);
-            res.json({ accessToken: accessToken });
+            res.json({
+                accessToken: accessToken,
+                userInfo: [
+                    {
+                        userName: adminUser.userName,
+                        firstName: adminUser.firstName,
+                        lastName: adminUser.lastName,
+                    },
+                ],
+            });
         }
         else {
             res.json({ accessToken: null });
@@ -87,6 +97,7 @@ const loadDataBasedOnPincodes = (req, res) => __awaiter(void 0, void 0, void 0, 
 exports.loadDataBasedOnPincodes = loadDataBasedOnPincodes;
 const fetchStates = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        const admin = req.user;
         const states = yield adminService.getStatesList();
         res.json(states);
     }

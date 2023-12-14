@@ -4,31 +4,48 @@ import path from "path";
 import AdminService from "../services/adminService";
 import { AddAdmin } from "../models/adminModel";
 
+interface AuthenticatedRequest extends Request {
+  user?: any;
+}
+
 dotenv.config({ path: path.resolve(__dirname, "..", ".env") });
 
 const jwt = require("jsonwebtoken");
 
 const adminService = new AdminService();
 
-export const addOrUpdateNewAdminUser = async (
-  req: Request,
+export const fetchAllAdminUsers = async (
+  req: AuthenticatedRequest,
   res: Response
 ): Promise<void> => {
   try {
+    const users = await adminService.getAllAdminUsers();
+    res.json(users);
+  } catch (error) {
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
+export const addOrUpdateNewAdminUser = async (
+  req: AuthenticatedRequest,
+  res: Response
+): Promise<void> => {
+  try {
+    const admin = req.user;
     const reqParam: AddAdmin = {
-      username: req.body.username,
+      username: req.body.userName,
       mobile: req.body.mobile,
-      firstname: req.body.firstname,
-      lastname: req.body.lastname,
+      firstname: req.body.firstName,
+      lastname: req.body.lastName,
       groupid: req.body.groupid,
-      createdby: req.body.createdby,
+      createdby: admin.userName,
       password: req.body.password,
       operation: req.body.operation,
     };
     const result = await adminService.addOrUpdateNewAdminUser(
       JSON.stringify(reqParam)
     );
-    res.json(result);
+    res.json(result[0][0]);
   } catch (error) {
     res.status(500).json({ error: "Internal Server Error" });
   }
@@ -56,7 +73,16 @@ export const adminLogin = async (
         },
         process.env.ACCESS_TOKEN_SECRET
       );
-      res.json({ accessToken: accessToken });
+      res.json({
+        accessToken: accessToken,
+        userInfo: [
+          {
+            userName: adminUser.userName,
+            firstName: adminUser.firstName,
+            lastName: adminUser.lastName,
+          },
+        ],
+      });
     } else {
       res.json({ accessToken: null });
     }
@@ -88,7 +114,7 @@ export const loadDataBasedOnPincodes = async (
 };
 
 export const fetchStates = async (
-  req: Request,
+  req: AuthenticatedRequest,
   res: Response
 ): Promise<void> => {
   try {
