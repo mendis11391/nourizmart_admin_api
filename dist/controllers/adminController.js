@@ -46,8 +46,15 @@ const adminLogin = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
             password: req.body.password,
         };
         const result = yield adminService.adminUserLogin(reqParam);
-        if (result && result[0] && result[0].result) {
-            const accessToken = jwt.sign({ request: reqParam }, process.env.ACCESS_TOKEN_SECRET);
+        if (result && result[0]) {
+            const adminUser = result[0];
+            const accessToken = jwt.sign({
+                adminId: adminUser.adminId,
+                userName: adminUser.userName,
+                firstName: adminUser.firstName,
+                lastName: adminUser.lastName,
+                groupId: adminUser.groupId,
+            }, process.env.ACCESS_TOKEN_SECRET);
             res.json({ accessToken: accessToken });
         }
         else {

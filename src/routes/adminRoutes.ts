@@ -9,6 +9,7 @@ import {
   loadDataBasedOnPincodes,
   savePincodeInfo,
 } from "../controllers/adminController";
+import isAuth from "../middleware/isAuth";
 const adminRoutes = Router();
 
 // POST API's
@@ -16,7 +17,7 @@ adminRoutes.post("/adminLogin", adminLogin);
 adminRoutes.post("/addAdmin", addOrUpdateNewAdminUser);
 // Get API's
 adminRoutes.get("/pincode/:pincode", loadDataBasedOnPincodes);
-adminRoutes.get("/states", fetchStates);
+adminRoutes.get("/states", isAuth, fetchStates);
 adminRoutes.get("/cities/:stateCode", fetchCities);
 adminRoutes.get("/pincodes/:cityCode", fetchPincodes);
 adminRoutes.get("/area/:pincode", fetchArea);

@@ -17,7 +17,7 @@ class AdminService {
         return (0, connection_1.query)(sql, [userData]);
     }
     adminUserLogin(userData) {
-        const sql = "SELECT NRM_ADMIN_AUTH(?,?) as result;";
+        const sql = "SELECT * FROM VW_NRM_ADMIN_AUTH where upper(userName)= upper(?) and password = NRM_PASS_HASH(?);";
         return (0, connection_1.query)(sql, [userData.username, userData.password]);
     }
     addInfoForPinCode(pincodeInfo) {
