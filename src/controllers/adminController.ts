@@ -6,6 +6,7 @@ import { AddAdmin } from "../models/adminModel";
 
 interface AuthenticatedRequest extends Request {
   user?: any;
+  params: any;
 }
 
 dotenv.config({ path: path.resolve(__dirname, "..", ".env") });
@@ -20,6 +21,18 @@ export const fetchAllAdminUsers = async (
 ): Promise<void> => {
   try {
     const users = await adminService.getAllAdminUsers();
+    res.json(users);
+  } catch (error) {
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
+export const fetchAdminUserInfo = async (
+  req: AuthenticatedRequest,
+  res: Response
+): Promise<void> => {
+  try {
+    const users = await adminService.getAdminUserInfo(req.params.adminId);
     res.json(users);
   } catch (error) {
     res.status(500).json({ error: "Internal Server Error" });

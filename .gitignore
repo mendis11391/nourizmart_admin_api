@@ -25,6 +25,6 @@
 !.nycrc
 !.yamllint.yaml
 
-dist
 node_modules
 dist.zip
+dist/*

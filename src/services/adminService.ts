@@ -13,6 +13,12 @@ export class AdminService {
     return query(sql);
   }
 
+  getAdminUserInfo(adminId: number): Promise<any> {
+    const sql =
+      "select admin_id as adminId, user_name as userName, mobile, first_name as firstName, last_name as lastName, is_active as isActive, GROUP_ID as groupid, password from NRM_ADMIN_DETAILS where admin_id = ?;";
+    return query(sql, [adminId]);
+  }
+
   addOrUpdateNewAdminUser(userData: any): Promise<any> {
     const sql = "CALL NRM_ADMIN_WORKFLOW(?);";
     return query(sql, [userData]);
