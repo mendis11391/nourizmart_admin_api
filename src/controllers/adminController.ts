@@ -54,6 +54,7 @@ export const addOrUpdateNewAdminUser = async (
       createdby: admin.userName,
       password: req.body.password,
       operation: req.body.operation,
+      isActive: req.body.isActive ? "Y" : "N",
     };
     const result = await adminService.addOrUpdateNewAdminUser(
       JSON.stringify(reqParam)

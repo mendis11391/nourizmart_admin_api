@@ -14,8 +14,7 @@ export class AdminService {
   }
 
   getAdminUserInfo(adminId: number): Promise<any> {
-    const sql =
-      "select admin_id as adminId, user_name as userName, mobile, first_name as firstName, last_name as lastName, is_active as isActive, GROUP_ID as groupid, password from NRM_ADMIN_DETAILS where admin_id = ?;";
+    const sql = "select * from VW_NRM_ADMIN_AUTH where adminId = ?;";
     return query(sql, [adminId]);
   }
 

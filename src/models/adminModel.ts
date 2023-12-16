@@ -7,4 +7,5 @@ export interface AddAdmin {
   createdby: string;
   password: string;
   operation: string;
+  isActive: string;
 }
