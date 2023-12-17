@@ -1,6 +1,8 @@
-const jwt = require("jsonwebtoken");
 import { Request, Response } from "express";
 import AppService from "../services/appService";
+import { AuthenticatedRequest } from "../interface/authenticationRequestInterface";
+
+const appService = new AppService();
 
 export const getAppName = async (
   req: Request,
@@ -16,46 +18,14 @@ export const getAppName = async (
   }
 };
 
-// export class AppController {
-//   static async getAppName(req: Request, res: Response) {
-//     res.json({
-//       app: process.env.APP_NAME,
-//       host: process.env.ENVIRONMENT,
-//     });
-//   }
-
-//   static async getUsers(req: Request, res: Response) {
-//     const result = await AppService.getUsers();
-//     if (result[0]) {
-//       const accessToken = jwt.sign(
-//         { username: "Testdata" },
-//         process.env.ACCESS_TOKEN_SECRET
-//       );
-//       res.json({ accessToken: accessToken, data: result[0] });
-//     } else {
-//       res.json({ accessToken: null });
-//     }
-//   }
-
-//   /**
-//    * Admin login
-//    */
-//   static async adminLogin(req: Request, res: Response) {
-//     const reqParam = {
-//       username: req.body.username,
-//       password: req.body.password,
-//     };
-//     const result = await AppService.adminUserLogin(reqParam);
-//     if (result[0].result) {
-//       const accessToken = jwt.sign(
-//         { username: reqParam.username },
-//         process.env.ACCESS_TOKEN_SECRET
-//       );
-//       res.json({ accessToken: accessToken });
-//     } else {
-//       res.json({ accessToken: null });
-//     }
-//   }
-// }
-
-// export default AppController;
+export const fetchCodeDictionaryValues = async (
+  req: AuthenticatedRequest,
+  res: Response
+): Promise<void> => {
+  try {
+    const users = await appService.getCodeDictionaryValues();
+    res.json(users);
+  } catch (error) {
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};

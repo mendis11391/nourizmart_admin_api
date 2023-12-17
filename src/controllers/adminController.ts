@@ -3,11 +3,7 @@ import dotenv from "dotenv";
 import path from "path";
 import AdminService from "../services/adminService";
 import { AddAdmin } from "../models/adminModel";
-
-interface AuthenticatedRequest extends Request {
-  user?: any;
-  params: any;
-}
+import { AuthenticatedRequest } from "../interface/authenticationRequestInterface";
 
 dotenv.config({ path: path.resolve(__dirname, "..", ".env") });
 
@@ -101,7 +97,6 @@ export const adminLogin = async (
       res.json({ accessToken: null });
     }
   } catch (error) {
-    console.error("Error in adminLogin:", error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
