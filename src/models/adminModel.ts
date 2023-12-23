@@ -5,7 +5,8 @@ export interface AddAdmin {
   lastname: string;
   groupid: number;
   createdby: string;
-  password: string;
+  password?: string;
   operation: string;
   isActive: string;
+  warehouseIds: Array<number>;
 }
