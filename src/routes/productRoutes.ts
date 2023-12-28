@@ -1,9 +1,9 @@
-// import { Router } from "express";
-// import userController from "../controllers/productsController";
+import { Router } from "express";
+import { addNewProduct } from "../controllers/productsController";
+import isAuth from "../middleware/isAuth";
+const productRoutes = Router();
 
-// const customerRoutes = Router();
+// POST API's
+productRoutes.post("/addProduct", addNewProduct);
 
-// customerRoutes.get("/", userController.getAllProducts);
-// customerRoutes.get("/:id", userController.getProductById);
-
-// export default customerRoutes;
+export default productRoutes;

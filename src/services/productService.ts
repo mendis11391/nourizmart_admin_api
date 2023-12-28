@@ -16,3 +16,14 @@
 // }
 
 // export default new Products();
+import { query } from "../database/connection";
+
+export class ProductService {
+  // {"productCategoryId":"1","unitId":"1","productName":"Tomato","isActive":"Y"}
+  addProduct(productData: any): Promise<any> {
+    const sql = "CALL NRM_PRODUCT_WORKFLOW (?)";
+    return query(sql, [productData]);
+  }
+}
+
+export default ProductService;

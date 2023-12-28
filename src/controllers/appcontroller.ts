@@ -23,8 +23,8 @@ export const fetchCodeDictionaryValues = async (
   res: Response
 ): Promise<void> => {
   try {
-    const users = await appService.getCodeDictionaryValues();
-    res.json(users);
+    const codeDictionaryValues = await appService.getCodeDictionaryValues();
+    res.json(codeDictionaryValues);
   } catch (error) {
     res.status(500).json({ error: "Internal Server Error" });
   }

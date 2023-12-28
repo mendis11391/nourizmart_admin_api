@@ -1,29 +1,31 @@
-// import { Request, Response } from "express";
-// import userModel from "../services/productService";
+import { Request, Response } from "express";
+import dotenv from "dotenv";
+import path from "path";
+import ProductService from "../services/productService";
+import { AddAdmin } from "../models/adminModel";
+import { AuthenticatedRequest } from "../interface/authenticationRequestInterface";
 
-// class ProductsController {
-//   getAllProducts(req: Request, res: Response) {
-//     userModel.getAllProducts((err, results) => {
-//       if (err) {
-//         console.error("Error fetching customer:", err);
-//         res.status(500).json({ error: "Database error" });
-//       } else {
-//         res.json(results);
-//       }
-//     });
-//   }
+const productService = new ProductService();
 
-//   getProductById(req: Request, res: Response) {
-//     const customerId = req.params.id; // Extract the customer ID from the URL
-//     userModel.getProductById(customerId, (error, results) => {
-//       if (error) {
-//         console.error("Error fetching customer:", error);
-//         res.status(500).json({ error: "Database error" });
-//       } else {
-//         res.json(results);
-//       }
-//     });
-//   }
-// }
-
-// export default new ProductsController();
+export const addNewProduct = async (
+  req: AuthenticatedRequest,
+  res: Response
+): Promise<void> => {
+  try {
+    // {"productCategoryId":"1","unitId":"1","productName":"Tomato","isActive":"Y"}
+    const reqParam = {
+      productCategoryId: req.body.productCategoryId,
+      unitId: req.body.unitId,
+      productName: req.body.productName,
+      isActive: req.body.isActive,
+    };
+    const result = await productService.addProduct(JSON.stringify(reqParam));
+    if (result && result[0]) {
+      res.json(result[0][0]);
+    } else {
+      res.json({ status: 0 });
+    }
+  } catch (error) {
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
