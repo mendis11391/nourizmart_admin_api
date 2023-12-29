@@ -29,3 +29,15 @@ export const addNewProduct = async (
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
+
+export const fetchAllProducts = async (
+  req: AuthenticatedRequest,
+  res: Response
+): Promise<void> => {
+  try {
+    const users = await productService.listAllProducts();
+    res.json(users);
+  } catch (error) {
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};

@@ -24,6 +24,11 @@ export class ProductService {
     const sql = "CALL NRM_PRODUCT_WORKFLOW (?)";
     return query(sql, [productData]);
   }
+
+  listAllProducts(): Promise<any> {
+    const sql = "select * from VW_NRM_PRODUCTS;";
+    return query(sql);
+  }
 }
 
 export default ProductService;
