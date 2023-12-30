@@ -15,11 +15,14 @@ export const addNewProduct = async (
     // {"productCategoryId":"1","unitId":"1","productName":"Tomato","isActive":"Y"}
     const reqParam = {
       productCategoryId: req.body.productCategoryId,
-      unitId: req.body.unitId,
       productName: req.body.productName,
       isActive: req.body.isActive,
     };
-    const result = await productService.addProduct(JSON.stringify(reqParam));
+    const productImage = req.body.productImage;
+    const result = await productService.addProduct(
+      JSON.stringify(reqParam),
+      productImage
+    );
     if (result && result[0]) {
       res.json(result[0][0]);
     } else {
@@ -35,8 +38,8 @@ export const fetchAllProducts = async (
   res: Response
 ): Promise<void> => {
   try {
-    const users = await productService.listAllProducts();
-    res.json(users);
+    const products = await productService.listAllProducts();
+    res.json(products);
   } catch (error) {
     res.status(500).json({ error: "Internal Server Error" });
   }
