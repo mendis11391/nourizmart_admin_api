@@ -11,6 +11,11 @@ export class ProductService {
     const sql = "select * from VW_NRM_PRODUCTS;";
     return query(sql);
   }
+
+  fetchAllProductPincodeMappings(): Promise<any> {
+    const sql = "SELECT * FROM VW_NRM_PRODUCT_PRICE_LINK;";
+    return query(sql);
+  }
 }
 
 export default ProductService;

@@ -1,8 +1,5 @@
 import { Request, Response } from "express";
-import dotenv from "dotenv";
-import path from "path";
 import ProductService from "../services/productService";
-import { AddAdmin } from "../models/adminModel";
 import { AuthenticatedRequest } from "../interface/authenticationRequestInterface";
 
 const productService = new ProductService();
@@ -40,6 +37,19 @@ export const fetchAllProducts = async (
   try {
     const products = await productService.listAllProducts();
     res.json(products);
+  } catch (error) {
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
+export const fetchAllProductPincodeMappings = async (
+  req: AuthenticatedRequest,
+  res: Response
+): Promise<void> => {
+  try {
+    const productPincodeMappings =
+      await productService.fetchAllProductPincodeMappings();
+    res.json(productPincodeMappings);
   } catch (error) {
     res.status(500).json({ error: "Internal Server Error" });
   }
