@@ -16,6 +16,11 @@ export class ProductService {
     const sql = "SELECT * FROM VW_NRM_PRODUCT_PRICE_LINK;";
     return query(sql);
   }
+
+  addProductPincodeMapping(mappingData: any): Promise<any> {
+    const sql = "call NRM_PRODUCT_PRICE_WORKFLOW (?)";
+    return query(sql, [mappingData]);
+  }
 }
 
 export default ProductService;
