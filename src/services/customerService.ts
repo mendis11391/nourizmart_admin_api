@@ -1,24 +1,43 @@
-// import { connectToDatabase, query } from "../database/connection";
+import { query } from "../database/connection";
 
-// export class CustomerService {
-//   getAll(callback: (error: any, results: any) => void) {
-//     const query = "SELECT * FROM customers";
-//     pool.query(query, callback);
-//   }
+export class CustomerService {
+  createNewCustomer(
+    firebaseId: string,
+    first_name: string,
+    last_name: string,
+    mobile: string,
+    email: string,
+    state: string,
+    district: string,
+    taluk: string,
+    area: string,
+    pincode: number,
+    landmark: string,
+    address: string
+  ): Promise<any> {
+    const sql =
+      "INSERT INTO users (firebaseId, first_name, last_name, mobile, email, state, district, taluk, area, pincode, landmark, address) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?";
+    return query(sql, [
+      firebaseId,
+      first_name,
+      last_name,
+      mobile,
+      email,
+      state,
+      district,
+      taluk,
+      area,
+      pincode,
+      landmark,
+      address,
+    ]);
+  }
 
-//   static async getAll(): Promise<any> {
-//     const connection = await connectToDatabase();
-//     const result = await query(
-//       connection,
-//       "SELECT NRM_ADMIN_AUTH(?,?) as result;",
-//       [userData.username, userData.password]
-//     );
-//     if (result === 0) {
-//       return null;
-//     }
-//     connection.end();
-//     return result;
-//   }
-// }
+  checkIfCustomerExists(firebaseId: any): Promise<any> {
+    const sql =
+      "select count(*) as customerExist from NRM_CUSTOMER_DETAILS where FIRE_BASE_ID = (?);";
+    return query(sql, [firebaseId]);
+  }
+}
 
-// export default CustomerService;
+export default CustomerService;
