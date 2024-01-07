@@ -21,6 +21,11 @@ export class ProductService {
     const sql = "call NRM_PRODUCT_PRICE_WORKFLOW (?)";
     return query(sql, [mappingData]);
   }
+
+  deleteProductPincodeMapping(productLinkID: any): Promise<any> {
+    const sql = "delete  (?)";
+    return query(sql, [productLinkID]);
+  }
 }
 
 export default ProductService;

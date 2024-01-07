@@ -35,7 +35,7 @@ export class CustomerService {
 
   checkIfCustomerExists(firebaseId: any): Promise<any> {
     const sql =
-      "select count(*) as customerExist from NRM_CUSTOMER_DETAILS where FIRE_BASE_ID = (?);";
+      "select count(1) as customerExist from NRM_CUSTOMER_DETAILS where FIRE_BASE_ID = (?)";
     return query(sql, [firebaseId]);
   }
 }

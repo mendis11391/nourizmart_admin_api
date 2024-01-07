@@ -73,3 +73,27 @@ export const addProductPincodeMapping = async (
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
+
+export const deleteProductPincodeMapping = async (
+  req: AuthenticatedRequest,
+  res: Response
+): Promise<void> => {
+  try {
+    const payload = [
+      {
+        ProductPriceLinkId: req.params.productPriceLinkId,
+        action: "delete",
+      },
+    ];
+    const result = await productService.addProductPincodeMapping(
+      JSON.stringify(payload)
+    );
+    if (result && result[0]) {
+      res.json(result[0][0]);
+    } else {
+      res.json({ status: 0 });
+    }
+  } catch (error) {
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
