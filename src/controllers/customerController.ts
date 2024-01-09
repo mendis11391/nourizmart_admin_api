@@ -23,3 +23,17 @@ export const checkIfCustomerExists = async (
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
+
+export const fetchCustomerData = async (
+  req: AuthenticatedRequest,
+  res: Response
+): Promise<void> => {
+  try {
+    const userInfo = await customerService.getCustomerInfo(
+      req.params.firebaseId
+    );
+    res.json(userInfo);
+  } catch (error) {
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
