@@ -12,12 +12,24 @@ export class ProductService {
     return query(sql);
   }
 
+  fetchProductPincodePriceMapping(mappingId: any): Promise<any> {
+    const sql =
+      "select * from VW_NRM_PRODUCT_PRICE_LINK where productPriceLinkId = ?;";
+    return query(sql, [mappingId]);
+  }
+
   fetchAllProductPincodeMappings(): Promise<any> {
-    const sql = "SELECT * FROM VW_NRM_PRODUCT_PRICE_LINK;";
+    const sql =
+      "SELECT productPriceLinkId, productName, ProductId, pincode, pincodId, price FROM VW_NRM_PRODUCT_PRICE_LINK;";
     return query(sql);
   }
 
   addProductPincodeMapping(mappingData: any): Promise<any> {
+    const sql = "call NRM_PRODUCT_PRICE_WORKFLOW (?)";
+    return query(sql, [mappingData]);
+  }
+
+  updateProductPincodeMappingPrice(mappingData: any): Promise<any> {
     const sql = "call NRM_PRODUCT_PRICE_WORKFLOW (?)";
     return query(sql, [mappingData]);
   }
