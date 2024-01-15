@@ -21,7 +21,7 @@ adminRoutes.post("/addAdmin", isAuth, addOrUpdateNewAdminUser);
 adminRoutes.get("/allAdminUsers", isAuth, fetchAllAdminUsers);
 adminRoutes.get("/adminUserInfo/:adminId", isAuth, fetchAdminUserInfo);
 adminRoutes.get("/pincode/:pincode", loadDataBasedOnPincodes);
-adminRoutes.get("/states", isAuth, fetchStates);
+adminRoutes.get("/states", fetchStates);
 adminRoutes.get("/cities/:stateCode", fetchCities);
 adminRoutes.get("/pincodes/:cityCode", fetchPincodes);
 adminRoutes.get("/area/:pincode", fetchArea);

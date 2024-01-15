@@ -37,3 +37,36 @@ export const fetchCustomerData = async (
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
+
+export const createNewCustomer = async (
+  req: AuthenticatedRequest,
+  res: Response
+): Promise<void> => {
+  try {
+    const userInfo = await customerService.createNewCustomer(req.body);
+    if (userInfo.serverStatus === 2) {
+      res.json({ status: 1, message: "Customer added successfully" });
+    } else {
+      res.json({ status: 0, message: "Something went wrong" });
+    }
+  } catch (error) {
+    res.status(500).json({ error: `Internal Server Error: ${error}` });
+  }
+};
+
+/*
+firebaseId: string,
+first_name: string,
+last_name: string,
+mobile: string,
+email: string,
+house_no: string,
+street: string,
+area: string,
+district: string,
+state: string,
+pincodeId: number,
+landmark: string,
+is_active: string = "Y",
+createdBy: String = "User"
+*/
