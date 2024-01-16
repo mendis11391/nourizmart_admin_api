@@ -10,6 +10,7 @@ import {
   savePincodeInfo,
   fetchAllAdminUsers,
   fetchAdminUserInfo,
+  test,
 } from "../controllers/adminController";
 import isAuth from "../middleware/isAuth";
 const adminRoutes = Router();
@@ -27,5 +28,7 @@ adminRoutes.get("/pincodes/:cityCode", fetchPincodes);
 adminRoutes.get("/area/:pincode", fetchArea);
 
 adminRoutes.post("/loadPincodeInfo", savePincodeInfo);
+
+adminRoutes.get("/test", test);
 
 export default adminRoutes;

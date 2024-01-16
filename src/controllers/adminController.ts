@@ -131,7 +131,7 @@ export const fetchStates = async (
     const states = await adminService.getStatesList();
     res.json(states);
   } catch (error) {
-    res.status(500).json({ error: "Internal Server Error" });
+    res.status(500).json({ error: `Internal Server Error: ${error}` });
   }
 };
 
@@ -184,5 +184,17 @@ export const savePincodeInfo = async (
   } catch (error) {
     console.error("Error in adding:", error);
     res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
+export const test = async (
+  req: AuthenticatedRequest,
+  res: Response
+): Promise<void> => {
+  try {
+    const states = await adminService.test();
+    res.json(states);
+  } catch (error) {
+    res.status(500).json({ error: `Internal Server Error: ${error}` });
   }
 };
