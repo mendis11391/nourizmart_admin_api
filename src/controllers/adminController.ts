@@ -131,7 +131,7 @@ export const fetchStates = async (
     const states = await adminService.getStatesList();
     res.json(states);
   } catch (error) {
-    res.status(500).json({ error: "Internal Server Error" });
+    res.status(500).json({ error: `Internal Server Error: ${error}` });
   }
 };
 
@@ -144,7 +144,7 @@ export const fetchCities = async (
     const cities = await adminService.getCitiesList(+stateCode);
     res.json(cities);
   } catch (error) {
-    res.status(500).json({ error: "Internal Server Error" });
+    res.status(500).json({ error: `Internal Server Error: ${error}` });
   }
 };
 
@@ -157,7 +157,7 @@ export const fetchPincodes = async (
     const pincodes = await adminService.getPincodesList(+cityCode);
     res.json(pincodes);
   } catch (error) {
-    res.status(500).json({ error: "Internal Server Error" });
+    res.status(500).json({ error: `Internal Server Error: ${error}` });
   }
 };
 
@@ -167,7 +167,7 @@ export const fetchArea = async (req: Request, res: Response): Promise<void> => {
     const pincodes = await adminService.getAreasList(+pincode);
     res.json(pincodes);
   } catch (error) {
-    res.status(500).json({ error: "Internal Server Error" });
+    res.status(500).json({ error: `Internal Server Error: ${error}` });
   }
 };
 
@@ -182,7 +182,6 @@ export const savePincodeInfo = async (
     );
     res.json({ result: result[0][0].status });
   } catch (error) {
-    console.error("Error in adding:", error);
-    res.status(500).json({ error: "Internal Server Error" });
+    res.status(500).json({ error: `Internal Server Error: ${error}` });
   }
 };
