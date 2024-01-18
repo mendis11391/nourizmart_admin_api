@@ -54,6 +54,11 @@ export class AdminService {
     return query(sql, [pincode]);
   }
 
+  test(): Promise<any> {
+    const sql = "select * from NRM_STATE;";
+    return query(sql);
+  }
+
   // static async addInfoForPinCode(pincodeInfo: any): Promise<any> {
   //   const connection = await connectToDatabase();
   //   const result = await query(connection, "call nrm_location_wflow(?);", [

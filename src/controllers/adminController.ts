@@ -185,3 +185,15 @@ export const savePincodeInfo = async (
     res.status(500).json({ error: `Internal Server Error: ${error}` });
   }
 };
+
+export const test = async (
+  req: AuthenticatedRequest,
+  res: Response
+): Promise<void> => {
+  try {
+    const states = await adminService.test();
+    res.json(states);
+  } catch (error) {
+    res.status(500).json({ error: `Internal Server Error: ${error}` });
+  }
+};
