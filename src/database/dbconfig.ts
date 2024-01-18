@@ -16,7 +16,10 @@ export const dbConfigDev = {
   user: process.env.DEV_DB_USER,
   password: process.env.DEV_DB_PASSWORD,
   database: process.env.DEV_DB_NAME,
-  connectTimeout: 50000,
+  connectionLimit: 1000,
+  connectTimeout: 60 * 60 * 1000,
+  acquireTimeout: 60 * 60 * 1000,
+  timeout: 60 * 60 * 1000,
 };
 
 export const dbConfigUAT = {
@@ -24,5 +27,8 @@ export const dbConfigUAT = {
   user: process.env.UAT_DB_USER,
   password: process.env.UAT_DB_PASSWORD,
   database: process.env.UAT_DB_NAME,
-  connectTimeout: 50000,
+  connectionLimit: 1000,
+  connectTimeout: 60 * 60 * 1000,
+  acquireTimeout: 60 * 60 * 1000,
+  timeout: 60 * 60 * 1000,
 };
