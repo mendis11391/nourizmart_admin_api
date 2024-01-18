@@ -12,12 +12,6 @@ export const getAppName = async (
     res.json({
       app: process.env.APP_NAME,
       host: process.env.ENVIRONMENT,
-      devdbhost: process.env.DEV_DB_HOST,
-      devuser: process.env.DEV_DB_USER,
-      devdbName: process.env.DEV_DB_NAME,
-      uatdbhost: process.env.UAT_DB_HOST,
-      uatuser: process.env.UAT_DB_USER,
-      uatdbName: process.env.UAT_DB_NAME,
     });
   } catch (error) {
     res.status(500).json({ error: "Internal Server Error" });
