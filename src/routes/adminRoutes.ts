@@ -29,6 +29,4 @@ adminRoutes.get("/area/:pincode", fetchArea);
 
 adminRoutes.post("/loadPincodeInfo", savePincodeInfo);
 
-adminRoutes.get("/test", test);
-
 export default adminRoutes;
