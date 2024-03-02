@@ -33,6 +33,7 @@ export class CustomerService {
       "select * from VW_NRM_CUSTOMER_DETAILS_BASE where firebaseId = (?)";
     return query(sql, [firebaseId]);
   }
+  // Sample comment
 }
 
 export default CustomerService;
