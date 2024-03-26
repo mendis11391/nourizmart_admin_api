@@ -1,0 +1,253 @@
+import type { Sequelize } from "sequelize";
+import { NRM_ADMIN_DETAILS as _NRM_ADMIN_DETAILS } from "./NRM_ADMIN_DETAILS";
+import type { NRM_ADMIN_DETAILSAttributes, NRM_ADMIN_DETAILSCreationAttributes } from "./NRM_ADMIN_DETAILS";
+import { NRM_ADMIN_WAREHOUSE_LINK as _NRM_ADMIN_WAREHOUSE_LINK } from "./NRM_ADMIN_WAREHOUSE_LINK";
+import type { NRM_ADMIN_WAREHOUSE_LINKAttributes, NRM_ADMIN_WAREHOUSE_LINKCreationAttributes } from "./NRM_ADMIN_WAREHOUSE_LINK";
+import { NRM_AREA as _NRM_AREA } from "./NRM_AREA";
+import type { NRM_AREAAttributes, NRM_AREACreationAttributes } from "./NRM_AREA";
+import { NRM_CUSTOMER_DETAILS as _NRM_CUSTOMER_DETAILS } from "./NRM_CUSTOMER_DETAILS";
+import type { NRM_CUSTOMER_DETAILSAttributes, NRM_CUSTOMER_DETAILSCreationAttributes } from "./NRM_CUSTOMER_DETAILS";
+import { NRM_CUST_ADD_DETAILS as _NRM_CUST_ADD_DETAILS } from "./NRM_CUST_ADD_DETAILS";
+import type { NRM_CUST_ADD_DETAILSAttributes, NRM_CUST_ADD_DETAILSCreationAttributes } from "./NRM_CUST_ADD_DETAILS";
+import { NRM_DELIVERY_TYPE as _NRM_DELIVERY_TYPE } from "./NRM_DELIVERY_TYPE";
+import type { NRM_DELIVERY_TYPEAttributes, NRM_DELIVERY_TYPECreationAttributes } from "./NRM_DELIVERY_TYPE";
+import { NRM_DISTRICT as _NRM_DISTRICT } from "./NRM_DISTRICT";
+import type { NRM_DISTRICTAttributes, NRM_DISTRICTCreationAttributes } from "./NRM_DISTRICT";
+import { NRM_GROUP as _NRM_GROUP } from "./NRM_GROUP";
+import type { NRM_GROUPAttributes, NRM_GROUPCreationAttributes } from "./NRM_GROUP";
+import { NRM_PINCODE as _NRM_PINCODE } from "./NRM_PINCODE";
+import type { NRM_PINCODEAttributes, NRM_PINCODECreationAttributes } from "./NRM_PINCODE";
+import { NRM_PRODUCTS as _NRM_PRODUCTS } from "./NRM_PRODUCTS";
+import type { NRM_PRODUCTSAttributes, NRM_PRODUCTSCreationAttributes } from "./NRM_PRODUCTS";
+import { NRM_PRODUCT_CATEGORY as _NRM_PRODUCT_CATEGORY } from "./NRM_PRODUCT_CATEGORY";
+import type { NRM_PRODUCT_CATEGORYAttributes, NRM_PRODUCT_CATEGORYCreationAttributes } from "./NRM_PRODUCT_CATEGORY";
+import { NRM_PRODUCT_PRICE_LINK as _NRM_PRODUCT_PRICE_LINK } from "./NRM_PRODUCT_PRICE_LINK";
+import type { NRM_PRODUCT_PRICE_LINKAttributes, NRM_PRODUCT_PRICE_LINKCreationAttributes } from "./NRM_PRODUCT_PRICE_LINK";
+import { NRM_PRODUCT_PRICE_LINK_HIS as _NRM_PRODUCT_PRICE_LINK_HIS } from "./NRM_PRODUCT_PRICE_LINK_HIS";
+import type { NRM_PRODUCT_PRICE_LINK_HISAttributes, NRM_PRODUCT_PRICE_LINK_HISCreationAttributes } from "./NRM_PRODUCT_PRICE_LINK_HIS";
+import { NRM_PRODUCT_UNIT_LINK as _NRM_PRODUCT_UNIT_LINK } from "./NRM_PRODUCT_UNIT_LINK";
+import type { NRM_PRODUCT_UNIT_LINKAttributes, NRM_PRODUCT_UNIT_LINKCreationAttributes } from "./NRM_PRODUCT_UNIT_LINK";
+import { NRM_STATE as _NRM_STATE } from "./NRM_STATE";
+import type { NRM_STATEAttributes, NRM_STATECreationAttributes } from "./NRM_STATE";
+import { NRM_UNITS as _NRM_UNITS } from "./NRM_UNITS";
+import type { NRM_UNITSAttributes, NRM_UNITSCreationAttributes } from "./NRM_UNITS";
+import { NRM_WAREHOUSE as _NRM_WAREHOUSE } from "./NRM_WAREHOUSE";
+import type { NRM_WAREHOUSEAttributes, NRM_WAREHOUSECreationAttributes } from "./NRM_WAREHOUSE";
+import { VW_NRM_ADMIN_AUTH as _VW_NRM_ADMIN_AUTH } from "./VW_NRM_ADMIN_AUTH";
+import type { VW_NRM_ADMIN_AUTHAttributes, VW_NRM_ADMIN_AUTHCreationAttributes } from "./VW_NRM_ADMIN_AUTH";
+import { VW_NRM_AREA as _VW_NRM_AREA } from "./VW_NRM_AREA";
+import type { VW_NRM_AREAAttributes, VW_NRM_AREACreationAttributes } from "./VW_NRM_AREA";
+import { VW_NRM_CUSTOMER_DETAILS_BASE as _VW_NRM_CUSTOMER_DETAILS_BASE } from "./VW_NRM_CUSTOMER_DETAILS_BASE";
+import type { VW_NRM_CUSTOMER_DETAILS_BASEAttributes, VW_NRM_CUSTOMER_DETAILS_BASECreationAttributes } from "./VW_NRM_CUSTOMER_DETAILS_BASE";
+import { VW_NRM_DISTRICT as _VW_NRM_DISTRICT } from "./VW_NRM_DISTRICT";
+import type { VW_NRM_DISTRICTAttributes, VW_NRM_DISTRICTCreationAttributes } from "./VW_NRM_DISTRICT";
+import { VW_NRM_GROUP as _VW_NRM_GROUP } from "./VW_NRM_GROUP";
+import type { VW_NRM_GROUPAttributes, VW_NRM_GROUPCreationAttributes } from "./VW_NRM_GROUP";
+import { VW_NRM_LOOKUP_BASE as _VW_NRM_LOOKUP_BASE } from "./VW_NRM_LOOKUP_BASE";
+import type { VW_NRM_LOOKUP_BASEAttributes, VW_NRM_LOOKUP_BASECreationAttributes } from "./VW_NRM_LOOKUP_BASE";
+import { VW_NRM_PINCODE as _VW_NRM_PINCODE } from "./VW_NRM_PINCODE";
+import type { VW_NRM_PINCODEAttributes, VW_NRM_PINCODECreationAttributes } from "./VW_NRM_PINCODE";
+import { VW_NRM_PRODUCTS as _VW_NRM_PRODUCTS } from "./VW_NRM_PRODUCTS";
+import type { VW_NRM_PRODUCTSAttributes, VW_NRM_PRODUCTSCreationAttributes } from "./VW_NRM_PRODUCTS";
+import { VW_NRM_PRODUCT_CATEGORY as _VW_NRM_PRODUCT_CATEGORY } from "./VW_NRM_PRODUCT_CATEGORY";
+import type { VW_NRM_PRODUCT_CATEGORYAttributes, VW_NRM_PRODUCT_CATEGORYCreationAttributes } from "./VW_NRM_PRODUCT_CATEGORY";
+import { VW_NRM_PRODUCT_PRICE_LINK as _VW_NRM_PRODUCT_PRICE_LINK } from "./VW_NRM_PRODUCT_PRICE_LINK";
+import type { VW_NRM_PRODUCT_PRICE_LINKAttributes, VW_NRM_PRODUCT_PRICE_LINKCreationAttributes } from "./VW_NRM_PRODUCT_PRICE_LINK";
+import { VW_NRM_PRODUCT_UNIT_LINK as _VW_NRM_PRODUCT_UNIT_LINK } from "./VW_NRM_PRODUCT_UNIT_LINK";
+import type { VW_NRM_PRODUCT_UNIT_LINKAttributes, VW_NRM_PRODUCT_UNIT_LINKCreationAttributes } from "./VW_NRM_PRODUCT_UNIT_LINK";
+import { VW_NRM_STATE as _VW_NRM_STATE } from "./VW_NRM_STATE";
+import type { VW_NRM_STATEAttributes, VW_NRM_STATECreationAttributes } from "./VW_NRM_STATE";
+import { VW_NRM_UNITS as _VW_NRM_UNITS } from "./VW_NRM_UNITS";
+import type { VW_NRM_UNITSAttributes, VW_NRM_UNITSCreationAttributes } from "./VW_NRM_UNITS";
+import { VW_NRM_WAREHOUSE as _VW_NRM_WAREHOUSE } from "./VW_NRM_WAREHOUSE";
+import type { VW_NRM_WAREHOUSEAttributes, VW_NRM_WAREHOUSECreationAttributes } from "./VW_NRM_WAREHOUSE";
+
+export {
+  _NRM_ADMIN_DETAILS as NRM_ADMIN_DETAILS,
+  _NRM_ADMIN_WAREHOUSE_LINK as NRM_ADMIN_WAREHOUSE_LINK,
+  _NRM_AREA as NRM_AREA,
+  _NRM_CUSTOMER_DETAILS as NRM_CUSTOMER_DETAILS,
+  _NRM_CUST_ADD_DETAILS as NRM_CUST_ADD_DETAILS,
+  _NRM_DELIVERY_TYPE as NRM_DELIVERY_TYPE,
+  _NRM_DISTRICT as NRM_DISTRICT,
+  _NRM_GROUP as NRM_GROUP,
+  _NRM_PINCODE as NRM_PINCODE,
+  _NRM_PRODUCTS as NRM_PRODUCTS,
+  _NRM_PRODUCT_CATEGORY as NRM_PRODUCT_CATEGORY,
+  _NRM_PRODUCT_PRICE_LINK as NRM_PRODUCT_PRICE_LINK,
+  _NRM_PRODUCT_PRICE_LINK_HIS as NRM_PRODUCT_PRICE_LINK_HIS,
+  _NRM_PRODUCT_UNIT_LINK as NRM_PRODUCT_UNIT_LINK,
+  _NRM_STATE as NRM_STATE,
+  _NRM_UNITS as NRM_UNITS,
+  _NRM_WAREHOUSE as NRM_WAREHOUSE,
+  _VW_NRM_ADMIN_AUTH as VW_NRM_ADMIN_AUTH,
+  _VW_NRM_AREA as VW_NRM_AREA,
+  _VW_NRM_CUSTOMER_DETAILS_BASE as VW_NRM_CUSTOMER_DETAILS_BASE,
+  _VW_NRM_DISTRICT as VW_NRM_DISTRICT,
+  _VW_NRM_GROUP as VW_NRM_GROUP,
+  _VW_NRM_LOOKUP_BASE as VW_NRM_LOOKUP_BASE,
+  _VW_NRM_PINCODE as VW_NRM_PINCODE,
+  _VW_NRM_PRODUCTS as VW_NRM_PRODUCTS,
+  _VW_NRM_PRODUCT_CATEGORY as VW_NRM_PRODUCT_CATEGORY,
+  _VW_NRM_PRODUCT_PRICE_LINK as VW_NRM_PRODUCT_PRICE_LINK,
+  _VW_NRM_PRODUCT_UNIT_LINK as VW_NRM_PRODUCT_UNIT_LINK,
+  _VW_NRM_STATE as VW_NRM_STATE,
+  _VW_NRM_UNITS as VW_NRM_UNITS,
+  _VW_NRM_WAREHOUSE as VW_NRM_WAREHOUSE,
+};
+
+export type {
+  NRM_ADMIN_DETAILSAttributes,
+  NRM_ADMIN_DETAILSCreationAttributes,
+  NRM_ADMIN_WAREHOUSE_LINKAttributes,
+  NRM_ADMIN_WAREHOUSE_LINKCreationAttributes,
+  NRM_AREAAttributes,
+  NRM_AREACreationAttributes,
+  NRM_CUSTOMER_DETAILSAttributes,
+  NRM_CUSTOMER_DETAILSCreationAttributes,
+  NRM_CUST_ADD_DETAILSAttributes,
+  NRM_CUST_ADD_DETAILSCreationAttributes,
+  NRM_DELIVERY_TYPEAttributes,
+  NRM_DELIVERY_TYPECreationAttributes,
+  NRM_DISTRICTAttributes,
+  NRM_DISTRICTCreationAttributes,
+  NRM_GROUPAttributes,
+  NRM_GROUPCreationAttributes,
+  NRM_PINCODEAttributes,
+  NRM_PINCODECreationAttributes,
+  NRM_PRODUCTSAttributes,
+  NRM_PRODUCTSCreationAttributes,
+  NRM_PRODUCT_CATEGORYAttributes,
+  NRM_PRODUCT_CATEGORYCreationAttributes,
+  NRM_PRODUCT_PRICE_LINKAttributes,
+  NRM_PRODUCT_PRICE_LINKCreationAttributes,
+  NRM_PRODUCT_PRICE_LINK_HISAttributes,
+  NRM_PRODUCT_PRICE_LINK_HISCreationAttributes,
+  NRM_PRODUCT_UNIT_LINKAttributes,
+  NRM_PRODUCT_UNIT_LINKCreationAttributes,
+  NRM_STATEAttributes,
+  NRM_STATECreationAttributes,
+  NRM_UNITSAttributes,
+  NRM_UNITSCreationAttributes,
+  NRM_WAREHOUSEAttributes,
+  NRM_WAREHOUSECreationAttributes,
+  VW_NRM_ADMIN_AUTHAttributes,
+  VW_NRM_ADMIN_AUTHCreationAttributes,
+  VW_NRM_AREAAttributes,
+  VW_NRM_AREACreationAttributes,
+  VW_NRM_CUSTOMER_DETAILS_BASEAttributes,
+  VW_NRM_CUSTOMER_DETAILS_BASECreationAttributes,
+  VW_NRM_DISTRICTAttributes,
+  VW_NRM_DISTRICTCreationAttributes,
+  VW_NRM_GROUPAttributes,
+  VW_NRM_GROUPCreationAttributes,
+  VW_NRM_LOOKUP_BASEAttributes,
+  VW_NRM_LOOKUP_BASECreationAttributes,
+  VW_NRM_PINCODEAttributes,
+  VW_NRM_PINCODECreationAttributes,
+  VW_NRM_PRODUCTSAttributes,
+  VW_NRM_PRODUCTSCreationAttributes,
+  VW_NRM_PRODUCT_CATEGORYAttributes,
+  VW_NRM_PRODUCT_CATEGORYCreationAttributes,
+  VW_NRM_PRODUCT_PRICE_LINKAttributes,
+  VW_NRM_PRODUCT_PRICE_LINKCreationAttributes,
+  VW_NRM_PRODUCT_UNIT_LINKAttributes,
+  VW_NRM_PRODUCT_UNIT_LINKCreationAttributes,
+  VW_NRM_STATEAttributes,
+  VW_NRM_STATECreationAttributes,
+  VW_NRM_UNITSAttributes,
+  VW_NRM_UNITSCreationAttributes,
+  VW_NRM_WAREHOUSEAttributes,
+  VW_NRM_WAREHOUSECreationAttributes,
+};
+
+export function initModels(sequelize: Sequelize) {
+  const NRM_ADMIN_DETAILS = _NRM_ADMIN_DETAILS.initModel(sequelize);
+  const NRM_ADMIN_WAREHOUSE_LINK = _NRM_ADMIN_WAREHOUSE_LINK.initModel(sequelize);
+  const NRM_AREA = _NRM_AREA.initModel(sequelize);
+  const NRM_CUSTOMER_DETAILS = _NRM_CUSTOMER_DETAILS.initModel(sequelize);
+  const NRM_CUST_ADD_DETAILS = _NRM_CUST_ADD_DETAILS.initModel(sequelize);
+  const NRM_DELIVERY_TYPE = _NRM_DELIVERY_TYPE.initModel(sequelize);
+  const NRM_DISTRICT = _NRM_DISTRICT.initModel(sequelize);
+  const NRM_GROUP = _NRM_GROUP.initModel(sequelize);
+  const NRM_PINCODE = _NRM_PINCODE.initModel(sequelize);
+  const NRM_PRODUCTS = _NRM_PRODUCTS.initModel(sequelize);
+  const NRM_PRODUCT_CATEGORY = _NRM_PRODUCT_CATEGORY.initModel(sequelize);
+  const NRM_PRODUCT_PRICE_LINK = _NRM_PRODUCT_PRICE_LINK.initModel(sequelize);
+  const NRM_PRODUCT_PRICE_LINK_HIS = _NRM_PRODUCT_PRICE_LINK_HIS.initModel(sequelize);
+  const NRM_PRODUCT_UNIT_LINK = _NRM_PRODUCT_UNIT_LINK.initModel(sequelize);
+  const NRM_STATE = _NRM_STATE.initModel(sequelize);
+  const NRM_UNITS = _NRM_UNITS.initModel(sequelize);
+  const NRM_WAREHOUSE = _NRM_WAREHOUSE.initModel(sequelize);
+  const VW_NRM_ADMIN_AUTH = _VW_NRM_ADMIN_AUTH.initModel(sequelize);
+  const VW_NRM_AREA = _VW_NRM_AREA.initModel(sequelize);
+  const VW_NRM_CUSTOMER_DETAILS_BASE = _VW_NRM_CUSTOMER_DETAILS_BASE.initModel(sequelize);
+  const VW_NRM_DISTRICT = _VW_NRM_DISTRICT.initModel(sequelize);
+  const VW_NRM_GROUP = _VW_NRM_GROUP.initModel(sequelize);
+  const VW_NRM_LOOKUP_BASE = _VW_NRM_LOOKUP_BASE.initModel(sequelize);
+  const VW_NRM_PINCODE = _VW_NRM_PINCODE.initModel(sequelize);
+  const VW_NRM_PRODUCTS = _VW_NRM_PRODUCTS.initModel(sequelize);
+  const VW_NRM_PRODUCT_CATEGORY = _VW_NRM_PRODUCT_CATEGORY.initModel(sequelize);
+  const VW_NRM_PRODUCT_PRICE_LINK = _VW_NRM_PRODUCT_PRICE_LINK.initModel(sequelize);
+  const VW_NRM_PRODUCT_UNIT_LINK = _VW_NRM_PRODUCT_UNIT_LINK.initModel(sequelize);
+  const VW_NRM_STATE = _VW_NRM_STATE.initModel(sequelize);
+  const VW_NRM_UNITS = _VW_NRM_UNITS.initModel(sequelize);
+  const VW_NRM_WAREHOUSE = _VW_NRM_WAREHOUSE.initModel(sequelize);
+
+  NRM_CUST_ADD_DETAILS.belongsTo(NRM_AREA, { as: "AREA", foreignKey: "AREA_ID"});
+  NRM_AREA.hasMany(NRM_CUST_ADD_DETAILS, { as: "NRM_CUST_ADD_DETAILs", foreignKey: "AREA_ID"});
+  NRM_CUST_ADD_DETAILS.belongsTo(NRM_CUSTOMER_DETAILS, { as: "user", foreignKey: "user_id"});
+  NRM_CUSTOMER_DETAILS.hasMany(NRM_CUST_ADD_DETAILS, { as: "NRM_CUST_ADD_DETAILs", foreignKey: "user_id"});
+  NRM_CUST_ADD_DETAILS.belongsTo(NRM_DISTRICT, { as: "DISTRICT", foreignKey: "DISTRICT_ID"});
+  NRM_DISTRICT.hasMany(NRM_CUST_ADD_DETAILS, { as: "NRM_CUST_ADD_DETAILs", foreignKey: "DISTRICT_ID"});
+  NRM_PINCODE.belongsTo(NRM_DISTRICT, { as: "DISTRICT", foreignKey: "DISTRICT_ID"});
+  NRM_DISTRICT.hasMany(NRM_PINCODE, { as: "NRM_PINCODEs", foreignKey: "DISTRICT_ID"});
+  NRM_ADMIN_DETAILS.belongsTo(NRM_GROUP, { as: "GROUP", foreignKey: "GROUP_ID"});
+  NRM_GROUP.hasMany(NRM_ADMIN_DETAILS, { as: "NRM_ADMIN_DETAILs", foreignKey: "GROUP_ID"});
+  NRM_AREA.belongsTo(NRM_PINCODE, { as: "PINCODE", foreignKey: "PINCODE_ID"});
+  NRM_PINCODE.hasMany(NRM_AREA, { as: "NRM_AREAs", foreignKey: "PINCODE_ID"});
+  NRM_CUST_ADD_DETAILS.belongsTo(NRM_PINCODE, { as: "PINCODE", foreignKey: "PINCODE_ID"});
+  NRM_PINCODE.hasMany(NRM_CUST_ADD_DETAILS, { as: "NRM_CUST_ADD_DETAILs", foreignKey: "PINCODE_ID"});
+  NRM_PRODUCTS.belongsTo(NRM_PRODUCT_CATEGORY, { as: "PRODUCT_CATEGORY", foreignKey: "PRODUCT_CATEGORY_ID"});
+  NRM_PRODUCT_CATEGORY.hasMany(NRM_PRODUCTS, { as: "NRM_PRODUCTs", foreignKey: "PRODUCT_CATEGORY_ID"});
+  NRM_CUST_ADD_DETAILS.belongsTo(NRM_STATE, { as: "STATE", foreignKey: "STATE_ID"});
+  NRM_STATE.hasMany(NRM_CUST_ADD_DETAILS, { as: "NRM_CUST_ADD_DETAILs", foreignKey: "STATE_ID"});
+  NRM_DISTRICT.belongsTo(NRM_STATE, { as: "STATE", foreignKey: "STATE_ID"});
+  NRM_STATE.hasMany(NRM_DISTRICT, { as: "NRM_DISTRICTs", foreignKey: "STATE_ID"});
+  NRM_ADMIN_WAREHOUSE_LINK.belongsTo(NRM_WAREHOUSE, { as: "WAREHOUSE", foreignKey: "WAREHOUSE_ID"});
+  NRM_WAREHOUSE.hasMany(NRM_ADMIN_WAREHOUSE_LINK, { as: "NRM_ADMIN_WAREHOUSE_LINKs", foreignKey: "WAREHOUSE_ID"});
+
+  return {
+    NRM_ADMIN_DETAILS: NRM_ADMIN_DETAILS,
+    NRM_ADMIN_WAREHOUSE_LINK: NRM_ADMIN_WAREHOUSE_LINK,
+    NRM_AREA: NRM_AREA,
+    NRM_CUSTOMER_DETAILS: NRM_CUSTOMER_DETAILS,
+    NRM_CUST_ADD_DETAILS: NRM_CUST_ADD_DETAILS,
+    NRM_DELIVERY_TYPE: NRM_DELIVERY_TYPE,
+    NRM_DISTRICT: NRM_DISTRICT,
+    NRM_GROUP: NRM_GROUP,
+    NRM_PINCODE: NRM_PINCODE,
+    NRM_PRODUCTS: NRM_PRODUCTS,
+    NRM_PRODUCT_CATEGORY: NRM_PRODUCT_CATEGORY,
+    NRM_PRODUCT_PRICE_LINK: NRM_PRODUCT_PRICE_LINK,
+    NRM_PRODUCT_PRICE_LINK_HIS: NRM_PRODUCT_PRICE_LINK_HIS,
+    NRM_PRODUCT_UNIT_LINK: NRM_PRODUCT_UNIT_LINK,
+    NRM_STATE: NRM_STATE,
+    NRM_UNITS: NRM_UNITS,
+    NRM_WAREHOUSE: NRM_WAREHOUSE,
+    VW_NRM_ADMIN_AUTH: VW_NRM_ADMIN_AUTH,
+    VW_NRM_AREA: VW_NRM_AREA,
+    VW_NRM_CUSTOMER_DETAILS_BASE: VW_NRM_CUSTOMER_DETAILS_BASE,
+    VW_NRM_DISTRICT: VW_NRM_DISTRICT,
+    VW_NRM_GROUP: VW_NRM_GROUP,
+    VW_NRM_LOOKUP_BASE: VW_NRM_LOOKUP_BASE,
+    VW_NRM_PINCODE: VW_NRM_PINCODE,
+    VW_NRM_PRODUCTS: VW_NRM_PRODUCTS,
+    VW_NRM_PRODUCT_CATEGORY: VW_NRM_PRODUCT_CATEGORY,
+    VW_NRM_PRODUCT_PRICE_LINK: VW_NRM_PRODUCT_PRICE_LINK,
+    VW_NRM_PRODUCT_UNIT_LINK: VW_NRM_PRODUCT_UNIT_LINK,
+    VW_NRM_STATE: VW_NRM_STATE,
+    VW_NRM_UNITS: VW_NRM_UNITS,
+    VW_NRM_WAREHOUSE: VW_NRM_WAREHOUSE,
+  };
+}
